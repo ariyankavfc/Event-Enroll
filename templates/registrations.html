@@ -1,0 +1,10 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h2>All Registrations</h2>
+{% for reg in registrations %}
+<div class="card">
+    <h4>{{ reg.name }} - {{ reg.email }}</h4>
+    <p>Event: {{ reg.event_title }}</p>
+</div>
+{% endfor %}
+{% endblock %}
