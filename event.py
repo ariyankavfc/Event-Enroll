@@ -4,10 +4,11 @@ import mysql.connector
 app = Flask(__name__)
 
 db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="Thiyagarajan@2004",
-    database="event_portal"
+    host=os.getenv("dpg-d2g5af75r7bs73el5mmg-a"),
+    user=os.getenv("eventsql_user"),
+    password=os.getenv("Oj3IfFstBjoF6zME24n5ORZpLyHRmEnf"),
+    database=os.getenv("eventsql"),
+    port=os.getenv("5432", 3306)
 )
 cursor = db.cursor(dictionary=True)
 
