@@ -13,6 +13,8 @@ def get_db():
         port=int(os.getenv("DB_PORT", "3306"))
     )
 
+
+
 @app.route('/')
 def index():
     db = get_db()
@@ -22,6 +24,7 @@ def index():
     cursor.close()
     db.close()
     return render_template('index.html', events=events)
+
 
 @app.route('/add', methods=['GET', 'POST'])
 def add_event():
@@ -74,4 +77,6 @@ def view_registrations():
     return render_template('registrations.html', registrations=registrations)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=False)
+
