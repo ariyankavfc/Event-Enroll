@@ -15,7 +15,7 @@ def get_db():
 
 
 
-@app.route('/')
+@app.route('/', methods=['GET', 'HEAD'])
 def index():
     db = get_db()
     cursor = db.cursor(dictionary=True)
@@ -24,7 +24,6 @@ def index():
     cursor.close()
     db.close()
     return render_template('index.html', events=events)
-
 
 @app.route('/add', methods=['GET', 'POST'])
 def add_event():
