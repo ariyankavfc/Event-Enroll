@@ -1,6 +1,8 @@
 import os
 from flask import Flask, render_template, request, redirect, url_for
 import mysql.connector
+from mysql.connector.constants 
+import ClientFlag
 
 app = Flask(__name__)
 
@@ -10,10 +12,10 @@ def get_db():
         user=os.getenv("DB_USER"),
         password=os.getenv("DB_PASSWORD"),
         database=os.getenv("DB_NAME"),
-        port=int(os.getenv("DB_PORT", "3306"))
+        port=int(os.getenv("DB_PORT", "5432")),
+        client_flags=[ClientFlag.SSL],
+        ssl_ca=os.getenv("DB_SSL_CA")  # path to CA cert if your provider gives one
     )
-
-
 
 @app.route('/', methods=['GET', 'HEAD'])
 def index():
