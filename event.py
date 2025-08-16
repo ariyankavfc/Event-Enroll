@@ -6,6 +6,11 @@ import ClientFlag
 
 app = Flask(__name__)
 
+# git add event.py
+# git commit -m "Fix: allow HEAD request on root route for Render health check"
+# git push
+
+
 def get_db():
     return mysql.connector.connect(
         host=os.getenv("DB_HOST"),
