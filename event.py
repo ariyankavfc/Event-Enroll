@@ -15,6 +15,31 @@ def get_db():
         sslmode="require"   # PostgreSQL on Render requires SSL
     )
 
+@app.route('/init-db')
+def init_db():
+    conn = get_db()
+    cur = conn.cursor()
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS events (
+            id SERIAL PRIMARY KEY,
+            title VARCHAR(255) NOT NULL,
+            date DATE NOT NULL,
+            description TEXT
+        );
+    """)
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS registrations (
+            id SERIAL PRIMARY KEY,
+            event_id INT REFERENCES events(id) ON DELETE CASCADE,
+            name VARCHAR(255) NOT NULL,
+            email VARCHAR(255) NOT NULL
+        );
+    """)
+    conn.commit()
+    cur.close()
+    conn.close()
+    return "✅ Database initialized!"
+
 @app.route('/', methods=['GET', 'HEAD'])
 def index():
     conn = get_db()
